@@ -28,11 +28,9 @@ public class KnightChess {
 	    PosMovs.add(src);
 	    while (flag == false){
 	    for (int i : PosMovs) {
-	        //breaks loop when found dest
-	        
 	        //populates list with every possible move
 	        for (int n : Moves){
-	        	//checks to see if move is out of bounds
+	        //checks to see if move is out of bounds
 	            if (i%8 == 6){
 	                if (n == -6 || n == 10) {
 	                    continue;
@@ -62,6 +60,7 @@ public class KnightChess {
 	            		continue;
 	            	}
 	            }
+			//breaks loop when found dest
 	            if ((i + n) == dest){
 		        	flag = true;
 		            break;
@@ -70,9 +69,10 @@ public class KnightChess {
 	            FullList.add(i + n);
 	            NewList.add(i + n);
 	        }
-	        // rests the list into a new set of moves and increments the number of moves
+	       
 
 	    }
+         // rests the list into a new set of moves and increments the number of moves
         PosMovs = NewList;
         NewList = new ArrayList<Integer>();
         NumberOfMoves += 1;
