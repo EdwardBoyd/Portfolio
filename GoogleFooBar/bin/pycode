@@ -1,0 +1,184 @@
+'''
+Created on Feb 16, 2018
+
+@author: e
+'''
+from random import randint
+from lib2to3.fixer_util import Number
+
+def answer1(s):
+    Saultes = 0
+    s = list(s)
+    slen = len(s)
+    Index = 0
+    for i in s:
+        if i == ">":
+            for x in range(Index,slen):
+                if s[x] == "<":
+                    Saultes += 2
+        Index += 1
+    return Saultes
+
+def answer2(src, dest):
+    PosMovs = [src]
+    Number = 1
+    NewNumber = 1
+    NumberOfMoves = 1
+    FalseMoves = 0
+    x = 0
+    Moves = [6,-6,10,-10,15,-15,17,-17]
+    for i in PosMovs:
+        #checks to see where in the list it is and then adds to number of moves
+        if x == (NewNumber):
+            NumberOfMoves += 1
+            Number = (Number * 8)
+            NewNumber =  Number - FalseMoves
+        print(Number,NewNumber,x,NumberOfMoves, FalseMoves)
+        #breaks loop when found dest
+        if i == dest:
+            break
+        #populates list with every possable move
+        for n in Moves:
+            if i%8 == 6: 
+                if n == -6 or n == 10:
+                    FalseMoves += 1
+                    continue
+            if i%8 == 1: 
+                if n == 6 or n == -10:
+                    FalseMoves += 1
+                    continue
+            if i%8 == 0: 
+                if n == 6 or n == -17 or n == 15:
+                    FalseMoves += 1
+                    continue
+            if i%8 == 7: 
+                if n == -6 or n == 17 or n == -15:
+                    FalseMoves += 1
+                    continue
+            if i + n > 63 or i + n < 0:
+                FalseMoves += 1
+                continue
+            PosMovs.append(i + n)
+        x += 1
+    if src == dest:
+        NumberOfMoves = 0
+    return NumberOfMoves
+       
+def answer3(n):
+    n = int(n)
+    NumberOfOperations = 0
+    while n != 1:
+        NumberAndOperations = division(n)
+        n = NumberAndOperations[0]
+        NumberOfOperations = NumberAndOperations[1] + NumberOfOperations
+    return NumberOfOperations    
+     
+def division(n): 
+    NumberOfOperations = 0      
+    if n%2 == 0:
+        n = n/2
+        NumberOfOperations += 1
+    else:
+        if n == 3:
+            n -= 1
+            NumberOfOperations += 1 
+            return (n),NumberOfOperations
+        if ((n+1)/2)%2 == 0:
+            n += 1
+            NumberOfOperations += 1 
+            return (n),NumberOfOperations
+        if ((n-1)/2)%2 == 0:
+            n -= 1
+            NumberOfOperations += 1 
+            return (n),NumberOfOperations
+        
+    return n,NumberOfOperations   
+        
+
+#for i in range(1,310):
+
+def answer4(l):
+    Listlen = len(l)
+    NumberOfCodes = 0
+    while Listlen >= 2:
+        Listlen -= 1
+        NumberOfCodes += len(Multiples(l, Listlen)) * len(Dividers(l, Listlen))
+    return NumberOfCodes
+
+def Multiples(l, index):
+    List = []
+    Number = l[index]
+    for i in l[index + 1:]:
+        if i % Number == 0:
+            List.append(i)  
+    return List 
+
+def Dividers(l, index):
+    List = []
+    Number = l[index]
+    for i in l[:index]:
+        if Number % i == 0:
+            List.append(i)  
+    return List 
+
+def answer(m):
+    DenomList = GetDenom(m)
+    tuples = Find01Loop(m, DenomList)
+    InversLoop = tuples[0]
+    Noloopchance = tuples[1]    
+    FindProabilty(m, InversLoop, Noloopchance)
+    
+def GetDenom(m):
+    Statelist = []
+    DenomList = []
+    for i in range(0,len(m)):
+        for index in m[i]:
+            if index != 0:
+                Statelist.append(index)
+            DenomList.append(sum(Statelist))
+    return DenomList    
+    
+    
+def Find01Loop(m,DenomList):
+    ColumnPointer = 0
+    RowPointer = 0
+    LoopFound = False
+    while LoopFound == False:
+        for State1 in m[RowPointer]:
+            if State1 != 0:
+                if m[RowPointer][ColumnPointer] != 0:
+                    tuples = RemoveLoopChance(RowPointer, m,DenomList,State1)
+                    LoopFound = True
+                else:
+                    return [-1,-1]
+            ColumnPointer += 1
+        RowPointer += 1     
+    return tuples    
+        
+def RemoveLoopChance(Pointer,m,DenomList,State1):
+    LoopChance = m[Pointer][0]/DenomList[1]
+    FirstNumber = State1/DenomList[0]
+    Removedloopchances = LoopChance * FirstNumber
+    Noloopchance =  FirstNumber - Removedloopchances 
+    InversNoLoop = 1 - Noloopchance 
+    
+    return InversNoLoop, Noloopchance
+    
+    
+def FindProabilty(m,Inversloop,Noloopchance):
+    if Noloopchance != -1:
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
