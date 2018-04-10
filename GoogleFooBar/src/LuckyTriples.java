@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/*
+ *Write a function answer(l) that takes a list of positive integers l and counts the number of "lucky triples" of (lst[i], lst[j], lst[k])
+ * where i < j < k. The length of l is between 2 and 2000 inclusive. The elements of l are between 1 and 999999 inclusive.
+ *  The answer fits within a signed 32-bit integer. Some of the lists are purposely generated without 
+ *  any access codes to throw off spies, so if no triples are found, return 0. 
+ */
+
 public class LuckyTriples {
 	public static void main(String[] args) {
 		int[] list = {1,1,1,2,2,2};

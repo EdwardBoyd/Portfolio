@@ -1,4 +1,9 @@
 
+/*
+Write a function answer(s) which takes a string representing employees walking
+ along a hallway and returns the number of times the employees will salute.
+ s will contain at least 1 and at most 100 characters, each one of -, >, or <
+*/
 public class Saultes {
 	
 	public static void main(String[] args) {
